@@ -15,21 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="prog.c">
+    <ClCompile Include="view.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\קבצים לפרוייקט\openCvTest.c">
+    <ClCompile Include="gifMaker.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\קבצים לפרוייקט\view.c">
+    <ClCompile Include="linkedList.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="user_io.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\קבצים לפרוייקט\linkedList.h">
+    <ClInclude Include="linkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\קבצים לפרוייקט\view.h">
+    <ClInclude Include="view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
