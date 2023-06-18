@@ -78,3 +78,21 @@ void myFgets(char* str)
 	fgets(str, STR_LEN, stdin);
 	str[strcspn(str, "\n")] = 0;
 }
+
+
+/*
+Checks whether a file exists in a given path
+Input: path to check
+Output: bool - whether file exists
+*/
+bool isFileExists(char* path)
+{
+	FILE* file = fopen(path, "r");
+
+	if (file)
+	{
+		fclose(file);
+		return true;
+	}
+	return false;
+}

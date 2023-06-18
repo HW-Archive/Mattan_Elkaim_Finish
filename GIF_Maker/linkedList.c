@@ -66,6 +66,13 @@ void addFrame(FrameNode** head)
 	printf("Please choose a name for that frame:\n");
 	myFgets(name);
 
+	// Handle case where path is invalid
+	if (!isFileExists(path))
+	{
+		printf("Can't find file! Frame will not be added\n");
+		return;
+	}
+
 	// Handle edge-case
 	if (!(*head))
 	{

@@ -11,5 +11,6 @@ void printMenu();
 int getUserInput(const unsigned int MIN, const unsigned int MAX);
 void clearBuffer();
 void myFgets(char* str);
+bool isFileExists(char* path);
 
 #endif
