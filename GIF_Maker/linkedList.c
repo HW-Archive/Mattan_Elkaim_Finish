@@ -17,7 +17,7 @@ Frame* initFrame(char* name, unsigned int duration, char* path)
 	Frame* newFrame = (Frame*)malloc(sizeof(Frame));
 	if (!newFrame)
 	{
-		printf("Error with memory allocation!\n");
+		puts("Error with memory allocation!");
 		return NULL;
 	}
 	strcpy(newFrame->name, name);
@@ -38,7 +38,7 @@ FrameNode* initNode(char* name, unsigned int duration, char* path)
 	FrameNode* newNode = (FrameNode*)malloc(sizeof(FrameNode));
 	if (!newNode)
 	{
-		printf("Error with memory allocation!\n");
+		puts("Error with memory allocation!");
 		return NULL;
 	}
 	newNode->frame = initFrame(name, duration, path);
@@ -48,8 +48,29 @@ FrameNode* initNode(char* name, unsigned int duration, char* path)
 
 
 /*
+Finds the target frame by its name
+Input: head of list, str name to match
+Output: ptr to frame | NULL if not found
+*/
+FrameNode* findFrameByName(FrameNode* head, char* name)
+{
+	while (head)
+	{
+		if (!strcmp(head->frame->name, name))
+		{
+			break; // Name found
+		}
+		head = head->next;
+	}
+
+	return head; // Frame with matched name
+}
+
+
+/*
 Appends a new frame node to the end of the list
 Input: ptr to first frame & new frame to append
+Output: void
 */
 void addFrame(FrameNode** head)
 {
@@ -58,18 +79,12 @@ void addFrame(FrameNode** head)
 	unsigned int duration = 0;
 	FrameNode* temp = NULL;
 
-	printf("*** Creating new frame ***\n");
-	printf("Please insert frame path:\n");
-	myFgets(path);
-	printf("Please insert frame duration (in miliseconds):\n");
-	getUserInput(0, (unsigned int)UINT_MAX);
-	printf("Please choose a name for that frame:\n");
-	myFgets(name);
+	getFrameProperties(&path, &name, &duration, *head);
 
 	// Handle case where path is invalid
 	if (!isFileExists(path))
 	{
-		printf("Can't find file! Frame will not be added\n");
+		puts("Can't find file! Frame will not be added");
 		return;
 	}
 
@@ -91,6 +106,87 @@ void addFrame(FrameNode** head)
 
 
 /*
+Removes a frame node from the list
+Input: ptr to head of list, name of frame to remove
+Output: void
+*/
+void removeFrame(FrameNode** head, char* name)
+{
+	FrameNode* current = *head;
+	FrameNode* temp = NULL;
+
+	// Edge-case: list is empty
+	if (!(*head))
+	{
+		puts("List is already empty!");
+		return;
+	}
+
+	// Edge-case: remove head
+	if (!strcmp((*head)->frame->name, name))
+	{
+		free((*head)->frame);
+		free(*head);
+		*head = NULL;
+		return;
+	}
+
+	while (current->next)
+	{
+		if (!strcmp(current->next->frame->name, name))
+		{
+			temp = current->next->next;
+			free(current->next->frame);
+			free(current->next);
+			current->next = temp;
+			return; // Deleted successfully
+		}
+	}
+
+	// Finished loop without returning, failed
+	puts("Frame not found!");
+}
+
+
+/*
+Changes the duration of a given frame
+name according to user's input
+Input: head of list, frame name to change
+Output: void
+*/
+void changeFrameDuration(FrameNode* head, char* name)
+{
+	FrameNode* toChange = findFrameByName(head, name);
+	if (!toChange)
+	{
+		puts("Frame not found!");
+		return;
+	}
+
+	printf("Enter new duration: ");
+	toChange->frame->duration = getUserInput(0, (unsigned int)UINT_MAX);;
+}
+
+
+/*
+Changes the duration of each frame to 1 value
+according to user's input
+Input: head
+Output: void
+*/
+void changeAllDuration(FrameNode* head)
+{
+	unsigned int newDuration = getUserInput(0, (unsigned int)UINT_MAX);
+
+	while (head)
+	{
+		head->frame->duration = newDuration;
+		head = head->next;
+	}
+}
+
+
+/*
 Simply prints all nodes' properties
 Input: head of list
 Output: void
@@ -99,7 +195,7 @@ void listFrames(FrameNode* head)
 {
 	char textDuration[STR_LEN] = { 0 }; // To format
 
-	printf("\tName            Duration        Path\n");
+	puts("\tName            Duration        Path");
 	while (head)
 	{
 		sprintf(textDuration, "%u ms", head->frame->duration); // Easier to format as one

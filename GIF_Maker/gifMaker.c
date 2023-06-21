@@ -15,12 +15,54 @@
 
 int main(void)
 {
-	//printf("Welcome to Magshimim Movie Maker! what would you like to do?\n");
-	FrameNode* first = initNode("hithere", 5000, "C:\\");
-	//first->next = initNode("well well", 321, "C:\\PICS");
-	addFrame(&first);
-	listFrames(first);
-	//getUserInput(EXIT, SAVE);
+	int userChoice = 0;
+	FrameNode* first = initNode("1", 500, "C:\\Users\\Magshimim\\Desktop\\gif_images\\1.png");
+	char string[STR_LEN] = { 0 }; // Temp for several functions
+
+	puts("Welcome to Magshimim Movie Maker! what would you like to do?");
+	while (true)
+	{
+		printMenu();
+		userChoice = getUserInput(EXIT, SAVE);
+
+		// Separate from switch to save the use of a flag
+		if (userChoice == EXIT)
+		{
+			puts("\nBye!");
+			break;
+		}
+
+		switch (userChoice)
+		{
+		case ADD:
+			addFrame(&first);
+			break;
+		case REMOVE:
+			puts("Enter frame name to remove:");
+			myFgets(string);
+			removeFrame(&first, string);
+			break;
+		case CHANGE_DURATION:
+			puts("Enter frame name to change:");
+			myFgets(string);
+			changeFrameDuration(first, string);
+			break;
+		case CHANGE_DURATION_ALL:
+			changeAllDuration(first);
+			break;
+		case LIST:
+			listFrames(first);
+			break;
+		case PLAY:
+			play(first);
+			break;
+		default:
+			break;
+		}
+
+		puts(""); // Newline
+	}
+
 	deleteVideo(&first);
 	(void)getchar();
 	return 0;
