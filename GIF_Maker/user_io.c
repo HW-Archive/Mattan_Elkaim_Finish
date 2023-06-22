@@ -27,7 +27,7 @@ void printMenu()
 
 /*
 Gets a valid user input
-Input: min & max of valid input
+Input: min & max of valid input (inclusive)
 Output: a valid int
 */
 int getUserInput(const unsigned int MIN, const unsigned int MAX)
@@ -63,8 +63,12 @@ Output: void
 */
 void clearBuffer()
 {
-	int scanfResult = 0;
-	while ((scanfResult = getchar()) != '\n' && scanfResult != EOF);
+	int scanfResult = getchar();
+
+	while (scanfResult != '\n' && scanfResult != EOF)
+	{
+		scanfResult = getchar();
+	}
 }
 
 
@@ -84,21 +88,29 @@ void myFgets(char* str)
 /*
 Gets from user & assigns by-reference
 all properties of a frame
-Input: pointers to path, name and duration, also head to check
+Input: path, name and ptr to duration, also head to check
 Output: void
 */
-void getFrameProperties(char** path, char** name, unsigned int *duration, FrameNode* head)
+void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNode* head)
 {
 	puts("*** Creating new frame ***");
 	puts("Please insert frame path:");
-	myFgets(*path);
+	myFgets(path);
+
+	// Handle case where path is invalid
+	if (!isFileExists(path))
+	{
+		puts("Can't find file!");
+		return;
+	}
+
 	puts("Please insert frame duration (in milliseconds):");
-	*duration = getUserInput(0, (unsigned int)UINT_MAX);
+	*duration = getUserInput(1, (unsigned int)UINT_MAX);
 	puts("Please choose a name for that frame:");
 	do
 	{
-		myFgets(*name);
-		if (!findFrameByName(head, *name))
+		myFgets(name);
+		if (!findFrameByName(head, name))
 		{
 			break; // Unique name
 		}

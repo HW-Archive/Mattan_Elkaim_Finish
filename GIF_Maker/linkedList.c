@@ -6,6 +6,7 @@
 #include "user_io.h"
 #pragma warning(disable : 4996) // Ignore unsafe functions
 
+unsigned int listSize = 0;
 
 /*
 Inits a new frame struct with given params
@@ -79,14 +80,13 @@ void addFrame(FrameNode** head)
 	unsigned int duration = 0;
 	FrameNode* temp = NULL;
 
-	getFrameProperties(&path, &name, &duration, *head);
-
-	// Handle case where path is invalid
-	if (!isFileExists(path))
+	getFrameProperties(path, name, &duration, *head);
+	if (!duration)
 	{
-		puts("Can't find file! Frame will not be added");
-		return;
+		return; // Duration unchanged => failed to get path & name
 	}
+
+	listSize++; // Update counter
 
 	// Handle edge-case
 	if (!(*head))
@@ -107,10 +107,10 @@ void addFrame(FrameNode** head)
 
 /*
 Removes a frame node from the list
-Input: ptr to head of list, name of frame to remove
+Input: ptr to list head, frame's name, bool to free memory
 Output: void
 */
-void removeFrame(FrameNode** head, char* name)
+void removeFrame(FrameNode** head, char* name, bool isDelete)
 {
 	FrameNode* current = *head;
 	FrameNode* temp = NULL;
@@ -122,12 +122,18 @@ void removeFrame(FrameNode** head, char* name)
 		return;
 	}
 
+	listSize--; // Update counter
+
 	// Edge-case: remove head
 	if (!strcmp((*head)->frame->name, name))
 	{
-		free((*head)->frame);
-		free(*head);
-		*head = NULL;
+		temp = (*head)->next;
+		if (isDelete)
+		{
+			free((*head)->frame);
+			free(*head);
+		}
+		*head = temp;
 		return;
 	}
 
@@ -136,11 +142,15 @@ void removeFrame(FrameNode** head, char* name)
 		if (!strcmp(current->next->frame->name, name))
 		{
 			temp = current->next->next;
-			free(current->next->frame);
-			free(current->next);
+			if (isDelete)
+			{
+				free(current->next->frame);
+				free(current->next);
+			}
 			current->next = temp;
 			return; // Deleted successfully
 		}
+		current = current->next;
 	}
 
 	// Finished loop without returning, failed
@@ -157,6 +167,7 @@ Output: void
 void changeFrameDuration(FrameNode* head, char* name)
 {
 	FrameNode* toChange = findFrameByName(head, name);
+
 	if (!toChange)
 	{
 		puts("Frame not found!");
@@ -164,7 +175,7 @@ void changeFrameDuration(FrameNode* head, char* name)
 	}
 
 	printf("Enter new duration: ");
-	toChange->frame->duration = getUserInput(0, (unsigned int)UINT_MAX);;
+	toChange->frame->duration = getUserInput(1, (unsigned int)UINT_MAX);;
 }
 
 
@@ -176,13 +187,71 @@ Output: void
 */
 void changeAllDuration(FrameNode* head)
 {
-	unsigned int newDuration = getUserInput(0, (unsigned int)UINT_MAX);
+	unsigned int newDuration = 0;
+
+	puts("Enter new duration for all frames:");
+	newDuration = getUserInput(1, (unsigned int)UINT_MAX);
 
 	while (head)
 	{
 		head->frame->duration = newDuration;
 		head = head->next;
 	}
+}
+
+
+/*
+Moves a frame by its name to a new position (user input),
+note that position starts from 1 & is in range of size
+Input: ptr to head of list, name to move
+Output: void
+*/
+void changeFramePosition(FrameNode** head, char* name)
+{
+	int newPosition = 0;
+	FrameNode* toMove = NULL;
+	FrameNode* current = NULL;
+	FrameNode* temp = NULL;
+
+	if (!(*head))
+	{
+		puts("List is empty!");
+		return;
+	}
+
+	toMove = findFrameByName(*head, name);
+	if (!toMove)
+	{
+		puts("Frame not found!");
+		return;
+	}
+	removeFrame(head, name, false); // Remove the frame from old position
+	listSize++; // Since it was decreased in removeFrame
+
+	puts("Enter the new position (from 1) in the movie you wish to place the frame:");
+	newPosition = getUserInput(1, listSize);
+	newPosition--; // Normalize to index from 0
+
+	// Edge-case: change head
+	if (newPosition == 0)
+	{
+		toMove->next = *head;
+		*head = toMove;
+		return;
+	}
+
+	// Reach position to insert to
+	current = *head;
+	while (newPosition > 1)
+	{
+		current = current->next;
+		newPosition--;
+	}
+
+	// Insert the frame
+	temp = current->next;
+	current->next = toMove;
+	toMove->next = temp;
 }
 
 
@@ -233,4 +302,5 @@ void deleteVideo(FrameNode** head)
 {
 	freeList(*head);
 	*head = NULL;
+	listSize = 0;
 }
