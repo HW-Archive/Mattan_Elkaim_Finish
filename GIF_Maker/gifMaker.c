@@ -50,6 +50,11 @@ int main(void)
 			myFgets(string);
 			changeFramePosition(&first, string);
 			break;
+		case RENAME:
+			puts("Enter frame name to rename:");
+			myFgets(string);
+			renameFrame(first, string);
+			break;
 		case CHANGE_DURATION:
 			puts("Enter frame name to change:");
 			myFgets(string);
@@ -63,6 +68,9 @@ int main(void)
 			break;
 		case PLAY:
 			play(first);
+			break;
+		case PLAY_REVERSED:
+			play(reverseList(first));
 			break;
 		default:
 			break;

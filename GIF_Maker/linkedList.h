@@ -25,10 +25,12 @@ FrameNode* initNode(char* name, unsigned int duration, char* path);
 FrameNode* findFrameByName(FrameNode* head, char* name);
 void addFrame(FrameNode** head);
 void removeFrame(FrameNode** head, char* name, bool isDelete);
+void renameFrame(FrameNode* head, char* name);
 void changeFrameDuration(FrameNode* head, char* name);
 void changeAllDuration(FrameNode* head);
 void changeFramePosition(FrameNode** head, char* name);
 void listFrames(FrameNode* head);
+FrameNode* reverseList(FrameNode* head);
 void freeList(FrameNode* head);
 void deleteVideo(FrameNode** head);
 

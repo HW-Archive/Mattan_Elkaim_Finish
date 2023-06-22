@@ -13,15 +13,17 @@ Output: void
 void printMenu()
 {
 	puts("What would you like to do?");
-	puts(" [0] Exit");
-	puts(" [1] Add new Frame");
-	puts(" [2] Remove a Frame");
-	puts(" [3] Change frame index");
-	puts(" [4] Change frame duration");
-	puts(" [5] Change duration of all frames");
-	puts(" [6] List frames");
-	puts(" [7] Play movie!");
-	puts(" [8] Save project");
+	printf(" [%u] Exit\n", EXIT);
+	printf(" [%u] Add new Frame\n", ADD);
+	printf(" [%u] Remove a Frame\n", REMOVE);
+	printf(" [%u] Change frame index\n", CHANGE_INDEX);
+	printf(" [%u] Rename a Frame\n", RENAME);
+	printf(" [%u] Change frame duration\n", CHANGE_DURATION);
+	printf(" [%u] Change duration for all frames\n", CHANGE_DURATION_ALL);
+	printf(" [%u] List frames\n", LIST);
+	printf(" [%u] Play GIF!\n", PLAY);
+	printf(" [%u] Play reversed GIF\n", PLAY_REVERSED);
+	printf(" [%u] Save project\n", SAVE);
 }
 
 

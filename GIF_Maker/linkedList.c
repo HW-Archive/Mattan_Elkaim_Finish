@@ -159,6 +159,26 @@ void removeFrame(FrameNode** head, char* name, bool isDelete)
 
 
 /*
+Changes the name of a frame
+Input: head of list, frame name to rename
+Output: void
+*/
+void renameFrame(FrameNode* head, char* name)
+{
+	FrameNode* toRename = findFrameByName(head, name);
+	if (!toRename)
+	{
+		puts("Frame not found!");
+		return;
+	}
+
+	puts("Enter new name for frame:");
+	myFgets(name); // Re-use variable
+	strcpy(toRename->frame->name, name);
+}
+
+
+/*
 Changes the duration of a given frame
 name according to user's input
 Input: head of list, frame name to change
@@ -271,6 +291,30 @@ void listFrames(FrameNode* head)
 		printf("\t%-16s%-16s%s\n", head->frame->name, textDuration, head->frame->path);
 		head = head->next;
 	}
+}
+
+
+/*
+Returns a reversed list, iteratively
+Input: head of list
+Output: head of reversed list
+*/
+FrameNode* reverseList(FrameNode* head)
+{
+	FrameNode* current = head;
+	FrameNode* temp = NULL;
+	FrameNode* prev = NULL;
+
+	while (current)
+	{
+		temp = current->next;
+		current->next = prev;
+		
+		prev = current;
+		current = temp;
+	}
+
+	return prev;
 }
 
 
