@@ -30,7 +30,7 @@ void changeFrameDuration(FrameNode* head, char* name);
 void changeAllDuration(FrameNode* head);
 void changeFramePosition(FrameNode** head, char* name);
 void listFrames(FrameNode* head);
-FrameNode* reverseList(FrameNode* head);
+void reverseList(FrameNode* head, FrameNode** reversedHead);
 void freeList(FrameNode* head);
 void deleteVideo(FrameNode** head);
 

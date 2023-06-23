@@ -12,7 +12,7 @@ Output: void
 */
 void printMenu()
 {
-	puts("What would you like to do?");
+	puts("\nWhat would you like to do?");
 	printf(" [%u] Exit\n", EXIT);
 	printf(" [%u] Add new Frame\n", ADD);
 	printf(" [%u] Remove a Frame\n", REMOVE);

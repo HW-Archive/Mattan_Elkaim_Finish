@@ -1,0 +1,16 @@
+1|100|Examples/horse/1.png
+2|100|Examples/horse/2.png
+3|100|Examples/horse/3.png
+4|100|Examples/horse/4.png
+5|100|Examples/horse/5.png
+6|100|Examples/horse/6.png
+7|100|Examples/horse/7.png
+8|100|Examples/horse/8.png
+9|100|Examples/horse/9.png
+10|100|Examples/horse/10.png
+11|100|Examples/horse/11.png
+12|100|Examples/horse/12.png
+13|100|Examples/horse/13.png
+14|100|Examples/horse/14.png
+15|100|Examples/horse/15.png
+16|100|Examples/horse/16.png

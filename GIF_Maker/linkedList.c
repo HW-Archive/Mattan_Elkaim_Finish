@@ -209,6 +209,13 @@ void changeAllDuration(FrameNode* head)
 {
 	unsigned int newDuration = 0;
 
+	// Change only if there are frames
+	if (!head)
+	{
+		puts("No frames in GIF");
+		return;
+	}
+
 	puts("Enter new duration for all frames:");
 	newDuration = getUserInput(1, (unsigned int)UINT_MAX);
 
@@ -295,15 +302,16 @@ void listFrames(FrameNode* head)
 
 
 /*
-Returns a reversed list, iteratively
-Input: head of list
-Output: head of reversed list
+Reverses a linked list, iteratively
+Input: head of list & ptr to reversed head
+Output: void - changing by-reference
 */
-FrameNode* reverseList(FrameNode* head)
+void reverseList(FrameNode* head, FrameNode** reversedHead)
 {
 	FrameNode* current = head;
 	FrameNode* temp = NULL;
 	FrameNode* prev = NULL;
+	FrameNode** returnNode = NULL;
 
 	while (current)
 	{
@@ -314,7 +322,7 @@ FrameNode* reverseList(FrameNode* head)
 		current = temp;
 	}
 
-	return prev;
+	*reversedHead = prev;
 }
 
 

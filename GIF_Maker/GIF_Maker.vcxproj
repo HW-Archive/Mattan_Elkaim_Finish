@@ -145,10 +145,12 @@
   <ItemGroup>
     <ClCompile Include="gifMaker.c" />
     <ClCompile Include="linkedList.c" />
+    <ClCompile Include="project_save.c" />
     <ClCompile Include="user_io.c" />
     <ClCompile Include="view.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="project_save.h" />
     <ClInclude Include="user_io.h" />
     <ClInclude Include="linkedList.h" />
     <ClInclude Include="view.h" />

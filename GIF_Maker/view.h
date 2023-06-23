@@ -1,6 +1,6 @@
 /*********************************
 * Class: MAGSHIMIM Final Project *
-* Play function declaration          *
+* Play function declaration      *
 **********************************/
 
 #ifndef VIEWH
@@ -13,7 +13,7 @@
 #include <opencv2\highgui\highgui_c.h>
 #include "LinkedList.h"
 
-#define GIF_REPEAT 5
+#define GIF_REPEAT 1
 
 void play(FrameNode* list);
 
