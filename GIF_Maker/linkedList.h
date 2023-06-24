@@ -2,7 +2,7 @@
 #define LINKEDLISTH
 
 #include <stdbool.h>
-#define STR_LEN 100 // Also defined in user_io.h
+#define STR_LEN 200 // Also defined in user_io.h
 
 // Frame struct
 typedef struct Frame
@@ -30,7 +30,7 @@ void changeFrameDuration(FrameNode* head, char* name);
 void changeAllDuration(FrameNode* head);
 void changeFramePosition(FrameNode** head, char* name);
 void listFrames(FrameNode* head);
-void reverseList(FrameNode* head, FrameNode** reversedHead);
+void reverseList(FrameNode** head);
 void freeList(FrameNode* head);
 void deleteVideo(FrameNode** head);
 

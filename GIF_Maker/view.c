@@ -3,6 +3,7 @@
 * Play function				 	 *
 **********************************/
 
+#include <stdio.h>
 #include "view.h"
 
 /**
@@ -16,12 +17,19 @@ void play(FrameNode* list)
 	cvNamedWindow("Display window", CV_WINDOW_AUTOSIZE); //create a window
 	FrameNode* head = list;
 	int imgNum = 1, playCount = 0;
-	IplImage* image;
+	IplImage* image = NULL;
+
 	while (playCount < GIF_REPEAT)
 	{
 		while (list != 0)
 		{
 			image = cvLoadImage(list->frame->path, 1);
+			if (!image)
+			{
+				imgNum++;
+				continue;
+			}
+
 			IplImage* pGrayImg = 0;
 			pGrayImg = cvCreateImage(cvSize(image->width, image->height), image->depth, 1);
 			if (!image) //The image is empty - shouldn't happen since we checked already.

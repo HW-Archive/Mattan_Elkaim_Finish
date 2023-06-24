@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <string.h>
 #include "user_io.h"
 #pragma warning(disable : 4996) // Ignore unsafe functions
 
@@ -32,7 +33,7 @@ Gets a valid user input
 Input: min & max of valid input (inclusive)
 Output: a valid int
 */
-int getUserInput(const unsigned int MIN, const unsigned int MAX)
+int getUserInput(const int MIN, const int MAX)
 {
 	int input = 0, result = 0;
 	char ch = ' ';
@@ -107,7 +108,7 @@ void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNod
 	}
 
 	puts("Please insert frame duration (in milliseconds):");
-	*duration = getUserInput(1, (unsigned int)UINT_MAX);
+	*duration = getUserInput(1, INT_MAX);
 	puts("Please choose a name for that frame:");
 	do
 	{

@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include "linkedList.h"
-#define STR_LEN 100
+#define STR_LEN 200
 
 // Added RENAME, PLAY_REVERSED
 enum COMMANDS
@@ -13,7 +13,7 @@ enum COMMANDS
 };
 
 void printMenu();
-int getUserInput(const unsigned int MIN, const unsigned int MAX);
+int getUserInput(const int MIN, const int MAX);
 void clearBuffer();
 void myFgets(char* str);
 void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNode* head);

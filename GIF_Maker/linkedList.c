@@ -195,7 +195,7 @@ void changeFrameDuration(FrameNode* head, char* name)
 	}
 
 	printf("Enter new duration: ");
-	toChange->frame->duration = getUserInput(1, (unsigned int)UINT_MAX);;
+	toChange->frame->duration = getUserInput(1, INT_MAX);;
 }
 
 
@@ -217,7 +217,7 @@ void changeAllDuration(FrameNode* head)
 	}
 
 	puts("Enter new duration for all frames:");
-	newDuration = getUserInput(1, (unsigned int)UINT_MAX);
+	newDuration = getUserInput(1, INT_MAX);
 
 	while (head)
 	{
@@ -303,15 +303,14 @@ void listFrames(FrameNode* head)
 
 /*
 Reverses a linked list, iteratively
-Input: head of list & ptr to reversed head
+Input: ptr to head of list
 Output: void - changing by-reference
 */
-void reverseList(FrameNode* head, FrameNode** reversedHead)
+void reverseList(FrameNode** head)
 {
-	FrameNode* current = head;
-	FrameNode* temp = NULL;
+	FrameNode* current = *head;
 	FrameNode* prev = NULL;
-	FrameNode** returnNode = NULL;
+	FrameNode* temp = NULL;
 
 	while (current)
 	{
@@ -322,7 +321,7 @@ void reverseList(FrameNode* head, FrameNode** reversedHead)
 		current = temp;
 	}
 
-	*reversedHead = prev;
+	*head = prev;
 }
 
 

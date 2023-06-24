@@ -48,8 +48,8 @@ FrameNode* loadProject(char* saveFilePath)
 
 	if (!saveFile)
 	{
-		puts("Save file not found! Project not loaded!");
-		return;
+		puts("Save file not found! Started a new project");
+		return NULL;
 	}
 
 	listSize = 0; // Reset, start to load frames

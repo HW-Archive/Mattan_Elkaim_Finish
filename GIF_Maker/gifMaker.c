@@ -19,7 +19,6 @@ int main(void) // 835 lines
 	bool isProjectSaved = false; // Has user saved recent changes
 	char string[STR_LEN] = { 0 }; // Temp for several functions
 	FrameNode* first = NULL;
-	FrameNode* temp = NULL; // For reverse
 
 	puts("Welcome to Magshimim GIF Maker! What would you like to do?");
 	puts(" [0] Create a new project");
@@ -85,9 +84,9 @@ int main(void) // 835 lines
 			play(first);
 			break;
 		case PLAY_REVERSED:
-			reverseList(first, &temp);
-			listFrames(temp);
-			play(temp);
+			reverseList(&first);
+			play(first);
+			reverseList(&first); // Back to original
 			break;
 		case SAVE:
 			puts("Enter path to save file:");
@@ -102,7 +101,7 @@ int main(void) // 835 lines
 	if (!isProjectSaved)
 	{
 		saveProject(first, DEFAULT_SAVE_FILE);
-		puts("Saved recent changed automatically at %s\n", DEFAULT_SAVE_FILE);
+		printf("Saved recent changed automatically at %s\n", DEFAULT_SAVE_FILE);
 	}
 
 	deleteVideo(&first); // Free memory
