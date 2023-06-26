@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "user_io.h"
+#include "project_save.h"
 #pragma warning(disable : 4996) // Ignore unsafe functions
 
 
@@ -38,7 +39,7 @@ int getUserInput(const int MIN, const int MAX)
 	int input = 0, result = 0;
 	char ch = ' ';
 
-	while (true)
+	do
 	{
 		result = scanf("%d%c", &input, &ch);
 		if (result == 2 && ch == '\n')
@@ -55,7 +56,7 @@ int getUserInput(const int MIN, const int MAX)
 			clearBuffer();
 		}
 		printf("Invalid choice. Try again: ");
-	}
+	} while (true);
 }
 
 
@@ -96,10 +97,25 @@ Output: void
 */
 void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNode* head)
 {
+	size_t pathLen = 0, nameLen = 0;
 	puts("*** Creating new frame ***");
 	puts("Please insert frame path:");
-	myFgets(path);
+	
+	do
+	{
+		myFgets(path);
+		pathLen = strlen(path);
+		
+		printf("%zu\n", strcspn(path, "\n"));
 
+		if (strcspn(path, FIELDS_DELIMITER) == pathLen)
+		{
+			break;
+		}
+		// Error, continue
+		printf("Path can't contain '%s'! Try again:\n", FIELDS_DELIMITER);
+	} while (true);
+	
 	// Handle case where path is invalid
 	if (!isFileExists(path))
 	{
@@ -110,14 +126,25 @@ void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNod
 	puts("Please insert frame duration (in milliseconds):");
 	*duration = getUserInput(1, INT_MAX);
 	puts("Please choose a name for that frame:");
+
 	do
 	{
 		myFgets(name);
-		if (!findFrameByName(head, name))
+		nameLen = strlen(name);
+
+		if (strcspn(name, FIELDS_DELIMITER) != nameLen)
 		{
-			break; // Unique name
+			printf("Name can't contain '%s'! Try again:\n", FIELDS_DELIMITER);
+			continue;
 		}
-		puts("The name is already taken, please enter another name:");
+		if (findFrameByName(head, name))
+		{
+			puts("This name is already taken, please choose another name:");
+			continue;
+		}
+
+		// No errors
+		break;
 	} while (true);
 }
 

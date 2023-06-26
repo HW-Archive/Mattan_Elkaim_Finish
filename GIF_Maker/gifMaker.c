@@ -3,6 +3,10 @@
 * Week:                			 *
 * Name: Mattan Elkaim            *
 **********************************/
+/*
+Note: files structure mustn't be changed,
+to avoid issues with the opencv library
+*/
 #pragma warning(disable : 4996) // Ignore unsafe functions
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,10 +17,11 @@
 #include "user_io.h"
 #include "project_save.h"
 
+
 int main(void) // 835 lines
 {
 	int userChoice = 0;
-	bool isProjectSaved = false; // Has user saved recent changes
+	bool isProjectSaved = true; // Has user saved recent changes
 	char string[STR_LEN] = { 0 }; // Temp for several functions
 	FrameNode* first = NULL;
 

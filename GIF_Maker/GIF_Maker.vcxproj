@@ -105,7 +105,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>c:\opencv\build\x64\vc14\bin c:\opencv\build\x64\vc15\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\Users\Magshimim\source\repos\HW-Archive\Mattan_Elkaim_Finish\GIF_Maker\opencv_world340d.lib</AdditionalDependencies>
+      <AdditionalDependencies>.\opencv_world340d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

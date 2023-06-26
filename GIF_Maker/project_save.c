@@ -67,7 +67,7 @@ FrameNode* loadProject(char* saveFilePath)
 		// Check fields validity
 		if (findFrameByName(head, name))
 		{
-			printf("Warning: found multiple occurrences of '%s'. Only first occurrence will be added\n", name);
+			printf("Warning: found multiple occurrences of '%s'. Adding only the first occurrence\n", name);
 			continue;
 		}
 		if (!isFileExists(path))
@@ -109,7 +109,7 @@ bool getNextField(FILE* file, char* field)
 	while ((ch = (char)fgetc(file)) != EOF)
 	{
 		// Reached end of field
-		if (ch == FIELDS_DELIMITER || ch == FRAMES_DELIMITER)
+		if (ch == FIELDS_DELIMITER[0] || ch == FRAMES_DELIMITER[0])
 		{
 			field[i] = 0; // Make sure str ends with NULL
 			return true;
