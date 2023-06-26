@@ -105,8 +105,6 @@ void getFrameProperties(char* path, char* name, unsigned int* duration, FrameNod
 	{
 		myFgets(path);
 		pathLen = strlen(path);
-		
-		printf("%zu\n", strcspn(path, "\n"));
 
 		if (strcspn(path, FIELDS_DELIMITER) == pathLen)
 		{

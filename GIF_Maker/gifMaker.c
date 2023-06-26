@@ -4,8 +4,10 @@
 * Name: Mattan Elkaim            *
 **********************************/
 /*
-Note: files structure mustn't be changed,
-to avoid issues with the opencv library
+Notes: 
+- Files structure mustn't be changed,
+  to avoid issues with the opencv library
+- Only supports PNG files!
 */
 #pragma warning(disable : 4996) // Ignore unsafe functions
 #include <stdio.h>
